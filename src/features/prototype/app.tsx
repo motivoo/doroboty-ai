@@ -19,6 +19,7 @@ import { SettingsPage, PrivacyPage } from "./settings";
 import { CasePage } from "./case";
 import { CandidateProjectPage } from "./project-card-candidate";
 import { ProjectRecruiterPage } from "./project-card-recruiter";
+import { HelpPage } from "./help";
 function AppRoutes() {
   return (
     <Routes>
@@ -28,6 +29,7 @@ function AppRoutes() {
         <Route path="oferty/:slug" element={<JobPage />} />
         <Route path="firmy/:slug" element={<CompanyPage />} />
         <Route path="metodologia" element={<MethodologyPage />} />
+        <Route path="pomoc" element={<HelpPage />} />
         <Route path="polityka-prywatnosci" element={<PrivacyPage />} />
         <Route path="auth/:mode" element={<PersonPicker />} />
         <Route

@@ -19,6 +19,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { currentPerson } from "./model";
 import { usePrototype } from "./store";
 import { cn } from "@/lib/utils";
+import { DemoNotice } from "./demo-notice";
 const navigation = [
   { to: "/oferty", label: "Oferty" },
   { to: "/metodologia", label: "Metodologia" },
@@ -67,7 +68,7 @@ const employerNav = [
   ["/app/organizacja", "Organizacja", Building2],
 ] as const;
 export function Shell() {
-  const { state, issue, error, clearError } = usePrototype();
+  const { state, issue, writeIssue, error, clearError } = usePrototype();
   const person = currentPerson(state);
   const { pathname } = useLocation();
   const workspace = pathname.startsWith("/app") && person;
@@ -90,6 +91,15 @@ export function Shell() {
         : candidateNav;
   const content = (
     <>
+      <DemoNotice />
+      {writeIssue && (
+        <Notice>
+          {writeIssue}{" "}
+          <Link className="underline" to="/app/settings">
+            Eksportuj swoją kopię
+          </Link>
+        </Notice>
+      )}
       <>
         {issue && (
           <Notice>

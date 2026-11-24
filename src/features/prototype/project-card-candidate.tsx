@@ -292,6 +292,21 @@ function ProjectEditor({ application }: { application: Application }) {
               tabIndex={0}
               role="region"
               aria-label="Opis stanowiska"
+              onKeyDown={(event) => {
+                if (
+                  event.target !== event.currentTarget ||
+                  event.altKey ||
+                  event.ctrlKey ||
+                  event.metaKey ||
+                  event.shiftKey
+                )
+                  return;
+                if (event.key === "Home" || event.key === "End") {
+                  event.preventDefault();
+                  event.currentTarget.scrollTop =
+                    event.key === "Home" ? 0 : event.currentTarget.scrollHeight;
+                }
+              }}
             >
               <JobDescription description={job?.description ?? "Opis roli niedostępny."} compact />
             </div>

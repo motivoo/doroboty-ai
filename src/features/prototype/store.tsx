@@ -1,6 +1,13 @@
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import { initialState, transition, type Action, type State } from "./model";
-import { parseState, readState, saveState, type StoragePort } from "./storage";
+import {
+  parseState,
+  readState,
+  saveState,
+  StorageConflictError,
+  type StoragePort,
+} from "./storage";
+import { useWriterLock } from "./writer-lock";
 function browserStorage(): StoragePort | null {
   try {
     return window.localStorage;
@@ -13,7 +20,10 @@ function useStore() {
   const [state, setState] = useState(loaded.state);
   const [issue, setIssue] = useState(loaded.issue);
   const [error, setError] = useState("");
+  const [operationMessage, setOperationMessage] = useState("");
   const [blocked, setBlocked] = useState(loaded.blocked);
+  const expectedRaw = useRef(loaded.raw);
+  const writer = useWriterLock();
   const latest = useRef(state);
   function commit(
     next: State,
@@ -21,30 +31,33 @@ function useStore() {
     requirePersistence = false,
     failureMessage = "Nie udało się zapisać zmian. Spróbuj ponownie. Szkic pozostaje dostępny.",
   ) {
-    if (requirePersistence) {
-      if (blocked) {
-        setError("Najpierw odzyskaj zapis w ustawieniach. Szkic pozostaje dostępny.");
-        return false;
-      }
+    if (!writer.writable.current) {
+      setError(writer.issue || "Trwa zabezpieczanie zapisu. Spróbuj ponownie za chwilę.");
+      return false;
+    }
+    if (requirePersistence && blocked && !replace) {
+      setError("Najpierw odzyskaj zapis w ustawieniach. Szkic pozostaje dostępny.");
+      return false;
+    }
+    let persistenceIssue = "";
+    if (!blocked || replace) {
       try {
-        saveState(browserStorage(), next);
+        expectedRaw.current = saveState(browserStorage(), next, expectedRaw.current);
       } catch (e) {
-        setIssue((e as Error).message);
-        setError(failureMessage);
-        return false;
+        persistenceIssue = (e as Error).message;
+        setIssue(persistenceIssue);
+        if (requirePersistence || e instanceof StorageConflictError) {
+          setError(e instanceof StorageConflictError ? e.message : failureMessage);
+          return false;
+        }
       }
     }
     latest.current = next;
     setState(next);
     setError("");
     if (blocked && !replace) return true;
-    try {
-      if (!requirePersistence) saveState(browserStorage(), next);
-      setIssue("");
-      if (replace) setBlocked(false);
-    } catch (e) {
-      setIssue((e as Error).message);
-    }
+    setIssue(persistenceIssue);
+    if (replace) setBlocked(false);
     return true;
   }
   function run(action: Action, persist = false) {
@@ -76,10 +89,17 @@ function useStore() {
     }
   }
   function importState(raw: string) {
+    setOperationMessage("");
     try {
       const next = { ...parseState(raw), preparedExamplesVersion: 1 as const };
-      commit(next, true);
-      return true;
+      const success = commit(
+        next,
+        true,
+        true,
+        "Nie udało się zapisać importu. Dotychczasowe dane pozostają bez zmian.",
+      );
+      if (success) setOperationMessage("Dane zostały zaimportowane.");
+      return success;
     } catch (e) {
       setError((e as Error).message);
       return false;
@@ -89,21 +109,41 @@ function useStore() {
     document.documentElement.classList.remove("dark");
   }, []);
   return {
+    ready: writer.ready,
     state,
     issue,
+    writeIssue: writer.issue,
     error,
+    operationMessage,
+    clearOperationMessage: () => setOperationMessage(""),
     blocked,
     original: loaded.original,
     run,
     importState,
-    clearError: () => setError(""),
-    reset: () => commit(initialState(), true),
+    clearError: () => {
+      setError("");
+      setOperationMessage("");
+    },
+    reset: () => {
+      setOperationMessage("");
+      const success = commit(
+        initialState(),
+        true,
+        true,
+        "Nie udało się zapisać resetu. Dotychczasowe dane pozostają bez zmian.",
+      );
+      if (success) setOperationMessage("Przywrócono scenariusz początkowy.");
+      return success;
+    },
   };
 }
 type Store = ReturnType<typeof useStore>;
 const Context = createContext<Store | null>(null);
 export function PrototypeProvider({ children }: { children: ReactNode }) {
   const store = useStore();
+  // Route effects may persist a review immediately on mount. Mount them only
+  // after the browser has resolved writer ownership, including read-only mode.
+  if (!store.ready) return <p role="status">Przygotowywanie scenariusza…</p>;
   return <Context.Provider value={store}>{children}</Context.Provider>;
 }
 export function usePrototype() {

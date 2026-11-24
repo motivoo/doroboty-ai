@@ -1,0 +1,70 @@
+/* Host extensions: C01 actions, C17 recovery and the existing paper/ink roles. */
+.demo-notice {
+  margin: 16px auto 24px;
+  padding: 16px 20px;
+  max-width: 1280px;
+  border: 1px solid var(--gui-text);
+  border-radius: 18px;
+  background: var(--gui-surface, white);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.demo-notice a,
+.prototype-help a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prototype-help {
+  display: grid;
+  gap: 20px;
+}
+.prototype-help h2 {
+  margin-top: 12px;
+}
+.prototype-help [data-slot="button"] {
+  justify-self: start;
+}
+.prototype-recovery {
+  margin: 40px auto;
+  max-width: 860px;
+  padding: 28px;
+  border: 1px solid var(--gui-text);
+  border-radius: 24px;
+  background: white;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+}
+.prototype-recovery > * {
+  min-width: 0;
+}
+.recovery-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.recovery-actions > button {
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  height: auto;
+  min-height: 44px;
+}
+.diagnostic-version {
+  overflow-wrap: anywhere;
+  font-size: 12px;
+}
+@media (max-width: 600px) {
+  .demo-notice {
+    margin: 12px 0 20px;
+    padding: 14px 16px;
+  }
+  .prototype-recovery {
+    margin: 18px;
+    padding: 20px;
+  }
+  .recovery-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

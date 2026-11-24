@@ -8,6 +8,7 @@ import {
   saveState,
   serializeState,
   STORAGE_KEY,
+  StorageConflictError,
 } from "./storage";
 function memory(raw: string | null = null) {
   const values = new Map(raw === null ? [] : [[STORAGE_KEY, raw]]);
@@ -19,6 +20,15 @@ function memory(raw: string | null = null) {
   };
 }
 describe("browser persistence and recovery", () => {
+  it("refuses a changed storage snapshot and preserves the newer save", () => {
+    const storage = memory();
+    const first = initialState();
+    const original = saveState(storage, first, null);
+    const newer = { ...first, activePersonId: "candidate-anna" };
+    const current = saveState(storage, newer, original);
+    expect(() => saveState(storage, first, original)).toThrow(StorageConflictError);
+    expect(storage.getItem(STORAGE_KEY)).toBe(current);
+  });
   it("loads the prepared approved card and a separate application without a card", () => {
     const state = readState(memory()).state;
     const anna = state.applications.filter(
