@@ -16,6 +16,9 @@ import { CvAttachment } from "./cv-attachment";
 import { MatchScore } from "./match-score";
 import { RecruitingApplication } from "./recruiting-application";
 import { CandidateApplication } from "./candidate-application";
+import { ProjectInvitation } from "./project-card-candidate";
+import { reviewStatus } from "./project-card-recruiter";
+import { sharedProjectVersion } from "./project-card-model";
 
 export function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
@@ -415,9 +418,16 @@ export function ApplicationsPage({ employer = false }: { employer?: boolean }) {
   const person = currentPerson(state)!;
   const [query, setQuery] = useState("");
   const [params] = useSearchParams();
+  const navigate = useNavigate();
+  const [jobFilter, setJobFilter] = useState("");
+  const submittedApplication =
+    !employer && params.has("wyslano")
+      ? state.applications.filter((a) => a.candidateId === person.id).at(-1)
+      : undefined;
   const applications = state.applications.filter(
     (x) =>
       (employer ? x.companyId === person.companyId : x.candidateId === person.id) &&
+      (!employer || !jobFilter || x.jobId === jobFilter) &&
       `${x.candidateName} ${x.jobTitle}`
         .toLocaleLowerCase("pl")
         .includes(query.toLocaleLowerCase("pl")),
@@ -430,33 +440,89 @@ export function ApplicationsPage({ employer = false }: { employer?: boolean }) {
           <CheckCircle2 className="inline size-5" /> Aplikacja została wysłana.
         </Notice>
       )}
+      {submittedApplication && (
+        <ProjectInvitation
+          application={submittedApplication}
+          onSkip={() => navigate("/app/aplikacje", { replace: true })}
+        />
+      )}
+      {employer && (
+        <label className="field mb-5">
+          <span>Zgłoszenia do roli</span>
+          <select
+            className="native-select"
+            value={jobFilter}
+            onChange={(event) => setJobFilter(event.target.value)}
+          >
+            <option value="">Wszystkie role</option>
+            {state.jobs
+              .filter((j) => j.companyId === person.companyId)
+              .map((j) => (
+                <option key={j.id} value={j.id}>
+                  {j.title}
+                </option>
+              ))}
+          </select>
+        </label>
+      )}
       <Field label={employer ? "Szukaj kandydata lub oferty" : "Szukaj oferty"}>
         <Input value={query} onChange={(e) => setQuery(e.target.value)} />
       </Field>
       <div className="mt-6 space-y-4">
         {applications.length ? (
-          applications.map((a) => (
-            <article className="prototype-panel" key={a.id}>
-              <div className="flex flex-wrap items-start justify-between gap-4">
-                <div>
-                  <Link
-                    className="text-xl font-semibold text-[var(--gui-link)]"
-                    to={`${employer ? "/app/kandydaci" : "/app/aplikacje"}/${a.id}`}
-                  >
-                    {employer ? a.candidateName : a.jobTitle}
-                  </Link>
-                  <p className="my-3 text-muted-foreground">
-                    {employer
-                      ? a.jobTitle
-                      : state.companies.find((x) => x.id === a.companyId)?.name}
-                  </p>
-                  <p>{stageLabels[a.stage]}</p>
+          applications.map((a) => {
+            const project = sharedProjectVersion(a);
+            return (
+              <article className="prototype-panel" key={a.id}>
+                <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div>
+                    <Link
+                      className="text-xl font-semibold text-[var(--gui-link)]"
+                      to={`${employer ? "/app/kandydaci" : "/app/aplikacje"}/${a.id}`}
+                    >
+                      {employer ? a.candidateName : a.jobTitle}
+                    </Link>
+                    <p className="my-3 text-muted-foreground">
+                      {employer
+                        ? a.jobTitle
+                        : state.companies.find((x) => x.id === a.companyId)?.name}
+                    </p>
+                    <p>{stageLabels[a.stage]}</p>
+                  </div>
+                  <MatchScore score={a.score} />
                 </div>
-                <MatchScore score={a.score} />
-              </div>
-              {employer && <p className="mt-4 text-muted-foreground">{a.summary}</p>}
-            </article>
-          ))
+                {employer && <p className="mt-4 text-muted-foreground">{a.summary}</p>}
+                <div className="project-list-meta">
+                  {employer && <span>{reviewStatus(a)}</span>}
+                  <span>Karta projektu: {project ? "Dostępna" : "Nie dołączono"}</span>
+                  {project && (
+                    <span>
+                      {project.content.name} · wersja {project.version} ·{" "}
+                      {new Date(project.at).toLocaleDateString("pl-PL")}
+                    </span>
+                  )}
+                </div>
+                {employer && (
+                  <div className="record-actions">
+                    <Link
+                      to={`/app/kandydaci/${a.id}/projekt`}
+                      className={buttonVariants({ variant: "outline", size: "sm" })}
+                    >
+                      Otwórz zgłoszenie
+                    </Link>
+                    {project ? (
+                      <Link
+                        to={`/app/kandydaci/${a.id}/projekt?e01=1`}
+                        className={buttonVariants({ variant: "ghost", size: "sm" })}
+                      >
+                        Sesja E01
+                      </Link>
+                    ) : null}
+                  </div>
+                )}
+              </article>
+            );
+          })
         ) : (
           <Empty>Brak aplikacji spełniających kryteria.</Empty>
         )}

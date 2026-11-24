@@ -3,6 +3,9 @@ import { Button } from "@/components/ui/button";
 import { ApplicationRecord } from "./application-record";
 import type { Application } from "./model";
 import { usePrototype } from "./store";
+import { ProjectInvitation } from "./project-card-candidate";
+import { ProjectReading } from "./project-card-reading";
+import { sharedProjectVersion } from "./project-card-model";
 
 export function CandidateApplication({ application }: { application: Application }) {
   const { state, run } = usePrototype();
@@ -14,6 +17,7 @@ export function CandidateApplication({ application }: { application: Application
   const focusAfter = useRef<"status" | "trigger" | "confirm" | null>(null);
   const company = state.companies.find((item) => item.id === application.companyId);
   const terminal = ["withdrawn", "rejected", "hired"].includes(application.stage);
+  const project = sharedProjectVersion(application);
 
   useLayoutEffect(() => {
     const targets = { status: statusRef, trigger: triggerRef, confirm: confirmRef };
@@ -23,6 +27,13 @@ export function CandidateApplication({ application }: { application: Application
 
   return (
     <>
+      <ProjectInvitation application={application} />
+      {project && (
+        <details className="record-sheet project-published">
+          <summary>Zobacz udostępnioną kartę</summary>
+          <ProjectReading content={project.content} />
+        </details>
+      )}
       <ApplicationRecord
         application={application}
         companyName={company?.name ?? ""}

@@ -4,8 +4,15 @@ const time = "2026-11-03T10:00:00.000Z";
 function as(state: State, id: string) {
   return transition(state, { type: "select_person", id });
 }
+function beforeAnnaApplies() {
+  const state = initialState();
+  state.applications = state.applications.filter(
+    (application) => application.candidateId !== "candidate-anna",
+  );
+  return state;
+}
 function submitted() {
-  const s = as(initialState(), "candidate-anna");
+  const s = as(beforeAnnaApplies(), "candidate-anna");
   return transition(
     s,
     {
@@ -22,7 +29,7 @@ function submitted() {
 }
 describe("coherent browser scenario", () => {
   it("requires approval and prevents duplicate applications", () => {
-    const s = as(initialState(), "candidate-anna");
+    const s = as(beforeAnnaApplies(), "candidate-anna");
     const input = {
       type: "submit" as const,
       jobId: s.jobs[0].id,

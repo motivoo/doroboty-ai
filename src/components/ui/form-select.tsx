@@ -29,6 +29,8 @@ export function FormSelect({
   triggerClassName,
   onValueChange,
   progressiveFallback = false,
+  invalid,
+  describedBy,
 }: {
   id?: string;
   name?: string;
@@ -43,6 +45,8 @@ export function FormSelect({
   triggerClassName?: string;
   onValueChange?: (value: string) => void;
   progressiveFallback?: boolean;
+  invalid?: boolean;
+  describedBy?: string;
 }) {
   const [internalValue, setInternalValue] = React.useState(defaultValue ?? "");
   const selectedValue = value ?? internalValue;
@@ -61,7 +65,13 @@ export function FormSelect({
         required={required}
         disabled={disabled}
       >
-        <SelectTrigger id={id} aria-label={ariaLabel} className={cn("w-full", triggerClassName)}>
+        <SelectTrigger
+          id={id}
+          aria-label={ariaLabel}
+          aria-invalid={invalid || undefined}
+          aria-describedby={describedBy}
+          className={cn("w-full", triggerClassName)}
+        >
           <SelectValue placeholder={placeholder}>{selectedLabel}</SelectValue>
         </SelectTrigger>
         <SelectContent align="start">

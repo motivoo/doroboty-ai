@@ -1,7 +1,15 @@
 import { z } from "zod";
 import marketplace from "./data/marketplace.json" with { type: "json" };
 import people from "./data/people.json" with { type: "json" };
+import preparedApplications from "./data/prepared-applications.json" with { type: "json" };
 import type { JobWithCompany } from "@/features/jobs/types";
+import {
+  contributionSchema,
+  reviewStateSchema,
+  reviewErrors,
+  type ProjectAction,
+} from "./project-card-model";
+import { updateProject } from "./project-card-operations";
 
 const id = z
   .string()
@@ -122,6 +130,8 @@ const applicationSchema = z.object({
     .array(z.object({ stage: z.enum(stages), at: z.iso.datetime(), note: text }))
     .min(1)
     .max(30),
+  contribution: contributionSchema.optional(),
+  projectReviews: reviewStateSchema.optional(),
 });
 const draftSchema = z.object({
   candidateId: id,
@@ -133,6 +143,7 @@ const draftSchema = z.object({
 export const stateSchema = z
   .object({
     version: z.literal(1),
+    preparedExamplesVersion: z.literal(1).optional(),
     activePersonId: id.nullable(),
     companies: z.array(companySchema).min(1).max(200),
     jobs: z.array(jobSchema).min(1).max(1000),
@@ -162,6 +173,90 @@ export const stateSchema = z
     for (const j of s.jobs) if (!companyIds.has(j.companyId)) problem("Unknown job company");
     const keys = new Set<string>();
     for (const a of s.applications) {
+      const versions = a.contribution?.versions ?? [];
+      const sharedVersion = a.contribution?.sharedVersion;
+      const removed = a.contribution?.removed;
+      if (
+        sharedVersion !== undefined &&
+        sharedVersion !== null &&
+        !versions.some((v) => v.version === sharedVersion)
+      )
+        problem("Unknown shared project version");
+      if (removed && (sharedVersion !== null || a.contribution?.draft))
+        problem("Invalid removed project state");
+      if (
+        removed?.sharedVersion !== undefined &&
+        removed.sharedVersion !== null &&
+        !versions.some((v) => v.version === removed.sharedVersion)
+      )
+        problem("Unknown removed project version");
+      if (
+        removed?.draft?.previewedRevision !== undefined &&
+        removed.draft.previewedRevision !== removed.draft.revision
+      )
+        problem("Invalid removed draft preview");
+      const projectDraft = a.contribution?.draft;
+      if (
+        projectDraft?.previewedRevision !== undefined &&
+        projectDraft.previewedRevision !== projectDraft.revision
+      )
+        problem("Invalid project preview revision");
+      versions.forEach((version, index) => {
+        if (version.version !== index + 1 || version.approvedBy !== a.candidateId)
+          problem("Invalid project version");
+      });
+      const reviews = [
+        ...(a.projectReviews?.saved ?? []),
+        ...(a.projectReviews?.draft ? [a.projectReviews.draft] : []),
+      ];
+      if (new Set(reviews.map((r) => r.id)).size !== reviews.length)
+        problem("Duplicate review identifiers");
+      for (const review of reviews) {
+        const version = versions.find((v) => v.version === review.cardVersion);
+        const bases = new Set([
+          "answer",
+          "cv",
+          "no_basis",
+          ...(version
+            ? [
+                "problem",
+                "own",
+                "team",
+                "decision",
+                "result",
+                "limits",
+                ...version.content.materials.map((m) => `material:${m.id}`),
+              ]
+            : []),
+        ]);
+        for (const key of ["own", "team", "result"] as const) {
+          const selected = review.content[key].bases;
+          if (
+            selected.some((base) => !bases.has(base)) ||
+            (selected.includes("no_basis") && selected.length > 1)
+          )
+            problem("Invalid review evidence reference");
+        }
+        if (review.content.fragment && !bases.has(review.content.fragment))
+          problem("Invalid role evidence reference");
+        if (
+          !s.people.some(
+            (p) => p.id === review.authorId && p.role === "employer" && p.companyId === a.companyId,
+          )
+        )
+          problem("Invalid review author");
+        if (review.cardVersion !== null && !versions.some((v) => v.version === review.cardVersion))
+          problem("Unknown reviewed project version");
+        if (review.mode !== "standard" && review.cardVersion === null)
+          problem("Missing E01 material");
+        if (review.savedAt && Object.keys(reviewErrors(review.content)).length)
+          problem("Invalid completed review");
+      }
+      for (const review of a.projectReviews?.saved ?? []) {
+        if (!review.savedAt) problem("Missing completed review timestamp");
+        if (!review.content.unable && !review.roleDescription.includes(review.content.requirement))
+          problem("Unknown reviewed role requirement");
+      }
       const key = `${a.candidateId}:${a.jobId}`;
       if (
         !candidates.has(a.candidateId) ||
@@ -198,6 +293,7 @@ export type State = z.infer<typeof stateSchema>;
 export type Person = State["people"][number];
 export type Application = State["applications"][number];
 export type Action =
+  | ProjectAction
   | { type: "select_person"; id: string | null }
   | { type: "profile"; value: z.infer<typeof profileSchema> }
   | { type: "toggle_saved"; jobId: string }
@@ -244,7 +340,32 @@ export function initialState(): State {
     stage: "submitted",
     events: [{ stage: "submitted", at: "2026-11-02T09:00:00.000Z", note: "" }],
   });
-  return stateSchema.parse(state);
+  return withPreparedExamples(state);
+}
+export function withPreparedExamples(state: State): State {
+  if (state.preparedExamplesVersion === 1) return state;
+  const applications = [...state.applications];
+  for (const example of preparedApplications) {
+    const job = state.jobs.find((job) => job.id === example.jobId);
+    if (
+      applications.length >= 2000 ||
+      job?.companyId !== example.companyId ||
+      !state.people.some(
+        (person) => person.id === example.candidateId && person.role === "candidate",
+      ) ||
+      applications.some(
+        (application) =>
+          application.id === example.id ||
+          (application.candidateId === example.candidateId && application.jobId === example.jobId),
+      ) ||
+      state.drafts.some(
+        (draft) => draft.candidateId === example.candidateId && draft.jobId === example.jobId,
+      )
+    )
+      continue;
+    applications.push(applicationSchema.parse(example));
+  }
+  return stateSchema.parse({ ...state, applications, preparedExamplesVersion: 1 });
 }
 export function publishedJobs(state: State): JobWithCompany[] {
   return state.jobs
@@ -278,6 +399,16 @@ export function transition(
     if (action.id !== null && !s.people.some((x) => x.id === action.id))
       fail("Nie znaleziono osoby.");
     s.activePersonId = action.id;
+  } else if (action.type.startsWith("project_") || action.type.startsWith("review_")) {
+    const projectAction = action as ProjectAction;
+    const application = s.applications.find((a) => a.id === projectAction.applicationId);
+    if (!person || !application) return fail("Nie znaleziono aplikacji lub osoby.");
+    updateProject(application, person, projectAction, {
+      now,
+      newId,
+      companyName: s.companies.find((c) => c.id === application.companyId)?.name ?? "",
+      roleDescription: s.jobs.find((j) => j.id === application.jobId)?.description ?? "",
+    });
   } else if (action.type === "profile")
     Object.assign(candidate(), profileSchema.parse(action.value));
   else if (action.type === "toggle_saved") {

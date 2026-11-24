@@ -3,6 +3,20 @@ import AxeBuilder from "@axe-core/playwright";
 import { initialState } from "../../src/features/prototype/model";
 import { STORAGE_KEY } from "../../src/features/prototype/storage";
 import { readFile } from "node:fs/promises";
+
+test.beforeEach(async ({ page }) => {
+  const state = initialState();
+  // Submission journeys start before Anna has applied; prepared examples have separate coverage.
+  state.applications = state.applications.filter(
+    (application) => application.candidateId !== "candidate-anna",
+  );
+  await page.addInitScript(
+    ({ key, state }) => {
+      if (!localStorage.getItem(key)) localStorage.setItem(key, JSON.stringify(state));
+    },
+    { key: STORAGE_KEY, state },
+  );
+});
 async function choose(page: Page, name: string) {
   await page.goto("/#/auth/sign-in");
   await page.getByRole("button", { name: `Wejdź jako ${name}`, exact: true }).click();
@@ -28,7 +42,8 @@ for (const [name, filename] of [
   }) => {
     const external: string[] = [];
     page.on("request", (request) => {
-      if (!request.url().startsWith("http://127.0.0.1:3106")) external.push(request.url());
+      if (/^https?:/.test(request.url()) && !request.url().startsWith("http://127.0.0.1:3106"))
+        external.push(request.url());
     });
     await choose(page, name);
     await page.goto("/#/app/profil");
@@ -347,6 +362,9 @@ for (const width of [1440, 375]) {
   }) => {
     await page.setViewportSize({ width, height: 900 });
     const legacy = initialState();
+    legacy.applications = legacy.applications.filter(
+      (application) => application.candidateId !== "candidate-anna",
+    );
     legacy.activePersonId = "candidate-anna";
     const job = legacy.jobs.find((job) => job.slug === "ai-product-manager")!;
     const draft = {
@@ -735,7 +753,7 @@ test("process sheet keeps notes across keyboard tabs and saves stage history wit
   await page.getByRole("button", { name: "Proces zakończony", exact: true }).click();
   await expect(page.locator(".record-stage")).toBeFocused();
   await expect(note).toHaveCount(0);
-  await expect(page.locator(".record-actions")).toHaveCount(0);
+  await expect(page.locator(".recruiting-record .record-actions")).toHaveCount(0);
   await expect(page.locator(".process-timeline li")).toHaveCount(3);
   const accessibility = await new AxeBuilder({ page }).include(".recruiting-record").analyze();
   expect(accessibility.violations).toEqual([]);

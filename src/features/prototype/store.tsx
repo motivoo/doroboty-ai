@@ -15,23 +15,57 @@ function useStore() {
   const [error, setError] = useState("");
   const [blocked, setBlocked] = useState(loaded.blocked);
   const latest = useRef(state);
-  function commit(next: State, replace = false) {
+  function commit(
+    next: State,
+    replace = false,
+    requirePersistence = false,
+    failureMessage = "Nie udało się zapisać zmian. Spróbuj ponownie. Szkic pozostaje dostępny.",
+  ) {
+    if (requirePersistence) {
+      if (blocked) {
+        setError("Najpierw odzyskaj zapis w ustawieniach. Szkic pozostaje dostępny.");
+        return false;
+      }
+      try {
+        saveState(browserStorage(), next);
+      } catch (e) {
+        setIssue((e as Error).message);
+        setError(failureMessage);
+        return false;
+      }
+    }
     latest.current = next;
     setState(next);
     setError("");
-    if (blocked && !replace) return;
+    if (blocked && !replace) return true;
     try {
-      saveState(browserStorage(), next);
+      if (!requirePersistence) saveState(browserStorage(), next);
       setIssue("");
       if (replace) setBlocked(false);
     } catch (e) {
       setIssue((e as Error).message);
     }
+    return true;
   }
-  function run(action: Action) {
+  function run(action: Action, persist = false) {
     try {
-      commit(transition(latest.current, action));
-      return true;
+      return commit(
+        transition(latest.current, action),
+        false,
+        persist ||
+          action.type === "project_share" ||
+          action.type === "project_remove" ||
+          action.type === "project_restore" ||
+          action.type === "review_save" ||
+          (action.type === "review_start" && action.mode !== "standard"),
+        action.type === "project_remove" || action.type === "project_restore"
+          ? "Nie udało się zapisać zmiany karty. Spróbuj ponownie. Dotychczasowa karta pozostaje bez zmian."
+          : action.type === "project_share"
+            ? "Nie udało się udostępnić karty. Spróbuj ponownie. Szkic pozostaje dostępny."
+            : action.type === "review_save"
+              ? "Nie udało się zapisać wniosku. Spróbuj ponownie. Szkic pozostaje dostępny."
+              : undefined,
+      );
     } catch (e) {
       setError(
         e instanceof Error && e.name !== "ZodError"
@@ -43,7 +77,7 @@ function useStore() {
   }
   function importState(raw: string) {
     try {
-      const next = parseState(raw);
+      const next = { ...parseState(raw), preparedExamplesVersion: 1 as const };
       commit(next, true);
       return true;
     } catch (e) {

@@ -1,0 +1,181 @@
+[
+  {
+    "id": "b14dfee5-3b0b-4ecb-b8f3-a342d1926bfa",
+    "candidateId": "candidate-anna",
+    "jobId": "20000000-0000-4000-8000-000000000001",
+    "companyId": "10000000-0000-4000-8000-000000000001",
+    "jobTitle": "AI Product Manager",
+    "candidateName": "Anna Kowalska",
+    "cv": "Anna Kowalska — Product Manager\n2022–2026: prowadzenie rozwoju narzędzi dla zespołów operacyjnych. Badania z 18 użytkownikami, priorytetyzacja i wdrożenie asystenta do zgłoszeń. Skrócenie czasu obsługi o 30%.\n2019–2022: Product Analyst. Analiza lejków i eksperymenty A/B.\nUmiejętności: discovery, analityka produktu, współpraca z inżynierami, prototypowanie AI.",
+    "answer": "Przykładowa aplikacja demonstracyjna. Prowadziłam rozwój asystenta do zgłoszeń w produkcie B2B: od badań z 18 użytkownikami i wyboru wąskiego problemu, przez priorytetyzację i współpracę z designerem oraz inżynierami, po pilotaż i pomiar czasu obsługi. W załączonej karcie oddzielam mój zakres od implementacji zespołu, opisuję decyzję o zatwierdzaniu podpowiedzi przez człowieka i pokazuję porównanie przed/po wraz z ograniczeniami. To przykład pracy odpowiadającej zadaniom AI Product Managera w BrightLabs: discovery, eksperyment, kryteria odbioru i rekomendacja dalszego rozwoju.",
+    "sourceNotes": "",
+    "generatedAnswer": "",
+    "score": 84,
+    "summary": "Doświadczenie w badaniach użytkowników i wdrażaniu automatyzacji. Warto porozmawiać o sposobie mierzenia efektów i współpracy z zespołem.",
+    "stage": "submitted",
+    "events": [
+      {
+        "stage": "submitted",
+        "at": "2026-11-24T10:58:37.934Z",
+        "note": ""
+      }
+    ],
+    "contribution": {
+      "versions": [
+        {
+          "version": 1,
+          "at": "2026-11-24T11:01:20.669Z",
+          "approvedBy": "candidate-anna",
+          "companyName": "BrightLabs",
+          "roleDescription": "W BrightLabs rozwijamy narzędzia dla zespołów finansowych i operacyjnych. Szukamy AI Product Managera, który poprowadzi wybrany obszar produktu: od rozmów z użytkownikami po sprawdzenie, czy wdrożenie ułatwiło im pracę. Będziesz współpracować z designerem, inżynierami i osobami prowadzącymi wdrożenia u klientów.\n\n### Co będzie na Twoim biurku\n\nProcesy naszych klientów nadal opierają się na arkuszach, wiadomościach i ręcznym sprawdzaniu dokumentów. Pomysłów na automatyzację jest więcej niż czasu na ich realizację. Twoim zadaniem będzie ustalić, które z nich warto sprawdzić i jaki zakres ma sens na początek.\n\n- Poprowadzisz discovery i zbierzesz dane o obecnym sposobie pracy: czasie obsługi, poprawkach i wyjątkach.\n- Z zespołem wybierzesz rozwiązanie, przygotujesz eksperyment i ustalisz kryteria odbioru.\n- Uzgodnisz priorytety i zależności, a po wdrożeniu wrócisz do użytkowników z pytaniami o wynik.\n\n### Na początek: jeden proces finansowy\n\nW pierwszym kwartale poznasz klientów i wybierzesz z zespołem ograniczony scenariusz do pilota. Przygotujecie prototyp, sprawdzicie go z użytkownikami i porównacie wynik z punktem wyjścia. Na koniec przedstawisz rekomendację: co rozwijamy, co poprawiamy, z czego rezygnujemy. Nie każdy problem wymaga modelu językowego.\n\n### Doświadczenie, z którego skorzystasz\n\nMasz za sobą prowadzenie produktu cyfrowego od discovery do wdrożenia. Umiesz połączyć rozmowy z analizą danych i wyjaśnić, dlaczego ograniczasz zakres. Rozmawiasz z inżynierami o jakości, koszcie i ograniczeniach rozwiązania. Nie musisz samodzielnie trenować modeli. Przyda się znajomość produktów B2B i procesów operacyjnych.\n\n### Ustalenia organizacyjne\n\nWarszawa, praca hybrydowa, umowa o pracę: 22 000–29 000 zł brutto miesięcznie. Warsztaty i spotkania planujemy wspólnie. Priorytety uzgadniasz z osobą odpowiedzialną za obszar, a zobowiązania wobec klienta z zespołem wdrożeniowym.\n\nRekrutacja to rozmowa wstępna, omówienie jednego Twojego projektu i spotkanie z zespołem. Chcemy poznać decyzje i ich konsekwencje; poufne materiały możesz zastąpić opisem.",
+          "content": {
+            "name": "Asystent zgłoszeń B2B — od discovery do pilota (demo)",
+            "problem": "Zespół operacyjny firmy B2B ręcznie czytał zgłoszenia, wyszukiwał procedury w kilku miejscach i przygotowywał odpowiedzi od zera. Wąskim gardłem był czas obsługi jednej powtarzalnej kategorii spraw oraz konieczność poprawiania niepełnych odpowiedzi. Celem projektu było skrócenie pracy nad taką sprawą przy zachowaniu kontroli użytkownika i jakości odpowiedzi. Na pilota wybraliśmy jedną kategorię, zamiast automatyzować cały proces obsługi.",
+            "own": "Poprowadziłam discovery z 18 użytkownikami i opisałam ich proces: kroki, wyjątki, miejsca szukania informacji i decyzje wymagające człowieka. Z właścicielem procesu wybrałam jedną kategorię zgłoszeń do pilota.\n\nPrzygotowałam mapę problemu, hipotezę, priorytety backlogu oraz kryteria odbioru. Zaplanowałam porównanie przed/po, uzgodniłam z analitykiem definicję czasu obsługi i poprowadziłam testy prototypu. Podczas wdrożenia koordynowałam zależności produktu, designu i inżynierii; po pilocie zebrałam uwagi użytkowników i przedstawiłam rekomendację dalszych prac. Moim zakresem było prowadzenie produktu i decyzje o zakresie, nie implementacja integracji ani trenowanie modelu.",
+            "teamMode": "description",
+            "team": "Designer przygotował makiety, interakcje zatwierdzania i poprawiania podpowiedzi oraz prototyp do testów. Inżynierowie zbudowali integrację z systemem zgłoszeń, wyszukiwanie w procedurach, wywołania modelu, logowanie błędów i ręczną ścieżkę awaryjną. Analityk przygotował zestawienie według uzgodnionych definicji. Właściciel procesu zapewnił procedury, dobrał sprawy do pilota i zaakceptował kryteria odbioru. Ja prowadziłam discovery, zakres, priorytety i ocenę pilota; nie przypisuję sobie implementacji tych elementów.",
+            "decisionMode": "description",
+            "decision": "Zdecydowałam, że pierwszy pilot będzie podpowiadał kategorię i szkic odpowiedzi, a każdą odpowiedź przed wysłaniem zatwierdzi użytkownik. Odrzuciłam automatyczne wysyłanie i obsługę wszystkich kategorii: koszt błędnej odpowiedzi był większy niż korzyść z pominięcia sprawdzenia.\n\nProste, jednoznaczne kroki pozostawiliśmy regułom. Model miał pomagać wyłącznie w pracy z nieustrukturyzowanym opisem i przygotowywać szkic na podstawie zatwierdzonych procedur. Gdy brakowało źródła albo integracja nie odpowiadała, sprawa wracała do obsługi ręcznej.\n\nPrzed pilotem uzgodniłam kryteria: co najmniej 20% krótsza mediana czasu obsługi w wybranej kategorii, brak wzrostu udziału spraw wymagających poprawek i zachowane zatwierdzanie przez człowieka. Dzięki temu zespół miał wspólną podstawę do decyzji, czy rozszerzać zakres.",
+            "resultMode": "description",
+            "result": "Powstał pilot asystenta dla jednej kategorii zgłoszeń: podpowiedź kategorii, szkic odpowiedzi z odniesieniem do procedury, edycja i zatwierdzenie przez użytkownika oraz powrót do ręcznej obsługi przy błędzie.\n\nW syntetycznym zestawieniu pilota mediana czasu obsługi spadła z 20 do 14 minut, czyli o 30%. Porównano po 50 spraw przed i po uruchomieniu. Poprawki były potrzebne w 2 z 50 spraw w każdej grupie. Ten wynik spełniał uzgodnione progi pilota; nie oznaczał potwierdzonej skuteczności dla wszystkich zgłoszeń.\n\nZarekomendowałam utrzymanie zatwierdzania przez człowieka i dłuższy pilot przed dodaniem kolejnej kategorii. Nie przedstawiałam pilota jako pełnej automatyzacji ani policzonego zwrotu z inwestycji.",
+            "resultBasisMode": "description",
+            "resultBasis": "Zestawienie M4: zestawienie demonstracyjne przed/po. Czas oznacza aktywną pracę od otwarcia sprawy do przygotowania kompletnej odpowiedzi, bez oczekiwania w kolejce. Porównanie obejmuje tę samą kategorię i definicję poprawki; po 50 spraw w dwutygodniowych oknach przed i po pilocie. Analityk przygotował zestawienie, a ja uzgodniłam definicje i omówiłam wynik z właścicielem procesu. To porównanie obserwacyjne na małej próbie, więc nie izoluje wpływu asystenta od innych zmian. Liczby są syntetyczne i służą pokazaniu dobrze uzupełnionej karty.",
+            "limits": "To przykład demonstracyjny przygotowany do testu prototypu. Opis, fragmenty materiałów i pomiary są syntetyczne; nie potwierdzają doświadczenia rzeczywistej osoby.\n\nProjekt dotyczy procesu operacyjnego B2B, a nie potwierdzonej znajomości księgowości. Nie mamy pomiaru długoterminowego użycia, kosztu utrzymania ani ROI. Mała próba i porównanie przed/po nie dowodzą, że całą zmianę czasu spowodował asystent. Materiały poniżej są opracowanymi przykładami, nie oryginalną dokumentacją klienta.",
+            "availability": "yes",
+            "unavailableReason": "",
+            "materials": [
+              {
+                "id": "c8300aa4-e422-492d-8f8d-dd7d626a3afb",
+                "name": "M1 · Discovery i zakres Anny (materiał demo)",
+                "kind": "excerpt",
+                "value": "SYNTETYCZNA NOTATKA DO DEMONSTRACJI\n1. Discovery: Anna poprowadziła rozmowy z 18 użytkownikami zespołu operacyjnego i opisała kroki obsługi zgłoszeń, wyjątki oraz miejsca ręcznego szukania procedur.\n2. Zakres: Anna i właściciel procesu wybrali jedną powtarzalną kategorię. Poza pilotem pozostały pozostałe typy spraw i automatyczne wysyłanie odpowiedzi.\n3. Anna przygotowała hipotezę skrócenia czasu, priorytety backlogu i kryteria: co najmniej 20% krótsza mediana czasu, brak wzrostu poprawek, zatwierdzanie przez użytkownika. Ta notatka jest opracowanym przykładem, nie zapisem rzeczywistego badania.",
+                "location": "Sekcje 1–3: rozpoznanie problemu, zakres pilota, odpowiedzialność PM",
+                "target": "own",
+                "shows": "Własne działania Anny: discovery, zawężenie problemu, hipoteza i kryteria odbioru.",
+                "support": "Właściciel procesu pomógł dobrać użytkowników; analityk uzgodnił definicje metryk. Rozmowy i decyzje produktowe prowadziła Anna."
+              },
+              {
+                "id": "792884b8-a7d7-4db3-851b-fc1f1006d92f",
+                "name": "M2 · Podział pracy w zespole (materiał demo)",
+                "kind": "excerpt",
+                "value": "SYNTETYCZNA TABELA ODPOWIEDZIALNOŚCI\nAnna (PM): discovery, wybór zakresu z właścicielem procesu, hipoteza, priorytety, kryteria odbioru, testy i rekomendacja.\nDesigner: makiety, prototyp i interakcje zatwierdzania/korekty podpowiedzi.\nInżynierowie: integracja z systemem zgłoszeń, wyszukiwanie w procedurach, wywołanie modelu, błędy i ręczna ścieżka awaryjna.\nAnalityk: zestawienie pomiarów według wspólnie uzgodnionych definicji.\nWłaściciel procesu: procedury, dobór spraw, zatwierdzenie kryteriów i odbiór pilota.\nAnna nie implementowała integracji ani nie trenowała modelu.",
+                "location": "Tabela odpowiedzialności: PM / design / inżynieria / analityka / właściciel procesu",
+                "target": "team",
+                "shows": "Rozdziela osobisty zakres Anny od projektowania interfejsu, kodowania i przygotowania zestawienia.",
+                "support": "Współpraca PM, designera, inżynierów, analityka i właściciela procesu; brak informacji o użyciu AI przez poszczególne osoby."
+              },
+              {
+                "id": "2ccf61e7-19b1-4098-aed1-5189f1513116",
+                "name": "M3 · Decyzja o zakresie pilota (materiał demo)",
+                "kind": "excerpt",
+                "value": "SYNTETYCZNY REJESTR DECYZJI D-01\nWariant A: automatyczna odpowiedź we wszystkich kategoriach. Odrzucony z powodu szerokiego zakresu i skutków błędnej odpowiedzi.\nWariant B: jedna kategoria, propozycja kategorii i szkic na podstawie zatwierdzonych procedur; człowiek sprawdza i wysyła. Wybrany przez Annę po uzgodnieniu z zespołem.\nProste kroki obsługują reguły; model pomaga przy treści nieustrukturyzowanej. Brak źródła lub awaria integracji oznacza obsługę ręczną.\nOdbiór: mediana czasu krótsza o minimum 20%, udział poprawek bez wzrostu, zachowane zatwierdzanie. Po pilocie decyzja o rozszerzeniu wymaga kolejnego pomiaru.",
+                "location": "Decyzja D-01: warianty, wybór, zabezpieczenia i progi",
+                "target": "decision",
+                "shows": "Dlaczego Anna wybrała wsparcie człowieka i mały zakres; jak decyzja przełożyła się na kryteria odbioru.",
+                "support": "Anna uzgodniła wykonalność i scenariusze awarii z inżynierami, a konsekwencje błędnej odpowiedzi z właścicielem procesu."
+              },
+              {
+                "id": "2938b71e-6256-4e1a-b8f5-9211e21bf2a5",
+                "name": "M4 · Pomiar pilota przed/po (materiał demo)",
+                "kind": "excerpt",
+                "value": "SYNTETYCZNE ZESTAWIENIE — NIE SĄ TO RZECZYWISTE DANE KLIENTA\nJedna kategoria zgłoszeń; dwa tygodnie przed i dwa tygodnie po pilocie.\n                         PRZED       PO\nLiczba spraw                50        50\nMediana aktywnej obsługi  20 min    14 min\nSprawy wymagające poprawki  2/50      2/50\nZmiana mediany: (20 − 14) / 20 = 30%. Poprawki: 4% w obu grupach.\nCzas: od rozpoczęcia pracy do kompletnej odpowiedzi, bez kolejki. Poprawka: uzupełnienie niepełnej lub błędnej odpowiedzi według tej samej definicji w obu grupach.\nOgraniczenia: mała próba, porównanie obserwacyjne przed/po, brak grupy kontrolnej. Surowe czasy, długoterminowa adopcja, ROI i koszt utrzymania nie są częścią tego przykładu.\nRekomendacja Anny: zachować zatwierdzanie i przeprowadzić dłuższy pilot przed rozszerzeniem kategorii.",
+                "location": "Tabela porównawcza oraz definicje pomiaru i ograniczenia",
+                "target": "result",
+                "shows": "Podstawę demonstracyjnego wyniku 30%, wielkość próby i brak wzrostu poprawek; pokazuje też ograniczenia porównania.",
+                "support": "Analityk przygotował zestawienie; Anna uzgodniła definicje i interpretację z właścicielem procesu. Nie jest to niezależna weryfikacja wyniku."
+              }
+            ]
+          }
+        },
+        {
+          "version": 2,
+          "at": "2026-11-24T14:20:01.262Z",
+          "approvedBy": "candidate-anna",
+          "companyName": "BrightLabs",
+          "roleDescription": "W BrightLabs rozwijamy narzędzia dla zespołów finansowych i operacyjnych. Szukamy AI Product Managera, który poprowadzi wybrany obszar produktu: od rozmów z użytkownikami po sprawdzenie, czy wdrożenie ułatwiło im pracę. Będziesz współpracować z designerem, inżynierami i osobami prowadzącymi wdrożenia u klientów.\n\n### Co będzie na Twoim biurku\n\nProcesy naszych klientów nadal opierają się na arkuszach, wiadomościach i ręcznym sprawdzaniu dokumentów. Pomysłów na automatyzację jest więcej niż czasu na ich realizację. Twoim zadaniem będzie ustalić, które z nich warto sprawdzić i jaki zakres ma sens na początek.\n\n- Poprowadzisz discovery i zbierzesz dane o obecnym sposobie pracy: czasie obsługi, poprawkach i wyjątkach.\n- Z zespołem wybierzesz rozwiązanie, przygotujesz eksperyment i ustalisz kryteria odbioru.\n- Uzgodnisz priorytety i zależności, a po wdrożeniu wrócisz do użytkowników z pytaniami o wynik.\n\n### Na początek: jeden proces finansowy\n\nW pierwszym kwartale poznasz klientów i wybierzesz z zespołem ograniczony scenariusz do pilota. Przygotujecie prototyp, sprawdzicie go z użytkownikami i porównacie wynik z punktem wyjścia. Na koniec przedstawisz rekomendację: co rozwijamy, co poprawiamy, z czego rezygnujemy. Nie każdy problem wymaga modelu językowego.\n\n### Doświadczenie, z którego skorzystasz\n\nMasz za sobą prowadzenie produktu cyfrowego od discovery do wdrożenia. Umiesz połączyć rozmowy z analizą danych i wyjaśnić, dlaczego ograniczasz zakres. Rozmawiasz z inżynierami o jakości, koszcie i ograniczeniach rozwiązania. Nie musisz samodzielnie trenować modeli. Przyda się znajomość produktów B2B i procesów operacyjnych.\n\n### Ustalenia organizacyjne\n\nWarszawa, praca hybrydowa, umowa o pracę: 22 000–29 000 zł brutto miesięcznie. Warsztaty i spotkania planujemy wspólnie. Priorytety uzgadniasz z osobą odpowiedzialną za obszar, a zobowiązania wobec klienta z zespołem wdrożeniowym.\n\nRekrutacja to rozmowa wstępna, omówienie jednego Twojego projektu i spotkanie z zespołem. Chcemy poznać decyzje i ich konsekwencje; poufne materiały możesz zastąpić opisem.",
+          "content": {
+            "name": "Asystent zgłoszeń B2B — od discovery do pilota (demo)",
+            "problem": "Zespół operacyjny firmy B2B ręcznie czytał zgłoszenia, wyszukiwał procedury w kilku miejscach i przygotowywał odpowiedzi od zera. Wąskim gardłem był czas obsługi jednej powtarzalnej kategorii spraw oraz konieczność poprawiania niepełnych odpowiedzi. Celem projektu było skrócenie pracy nad taką sprawą przy zachowaniu kontroli użytkownika i jakości odpowiedzi. Na pilota wybraliśmy jedną kategorię, zamiast automatyzować cały proces obsługi.",
+            "own": "Poprowadziłam discovery z 18 użytkownikami i opisałam ich proces: kroki, wyjątki, miejsca szukania informacji i decyzje wymagające człowieka. Z właścicielem procesu wybrałam jedną kategorię zgłoszeń do pilota.\n\nPrzygotowałam mapę problemu, hipotezę, priorytety backlogu oraz kryteria odbioru. Zaplanowałam porównanie przed/po, uzgodniłam z analitykiem definicję czasu obsługi i poprowadziłam testy prototypu. Podczas wdrożenia koordynowałam zależności produktu, designu i inżynierii; po pilocie zebrałam uwagi użytkowników i przedstawiłam rekomendację dalszych prac. Moim zakresem było prowadzenie produktu i decyzje o zakresie, nie implementacja integracji ani trenowanie modelu.",
+            "teamMode": "description",
+            "team": "Designer przygotował makiety, interakcje zatwierdzania i poprawiania podpowiedzi oraz prototyp do testów. Inżynierowie zbudowali integrację z systemem zgłoszeń, wyszukiwanie w procedurach, wywołania modelu, logowanie błędów i ręczną ścieżkę awaryjną. Analityk przygotował zestawienie według uzgodnionych definicji. Właściciel procesu zapewnił procedury, dobrał sprawy do pilota i zaakceptował kryteria odbioru. Ja prowadziłam discovery, zakres, priorytety i ocenę pilota; nie przypisuję sobie implementacji tych elementów.",
+            "decisionMode": "description",
+            "decision": "Zdecydowałam, że pierwszy pilot będzie podpowiadał kategorię i szkic odpowiedzi, a każdą odpowiedź przed wysłaniem zatwierdzi użytkownik. Odrzuciłam automatyczne wysyłanie i obsługę wszystkich kategorii: koszt błędnej odpowiedzi był większy niż korzyść z pominięcia sprawdzenia.\n\nProste, jednoznaczne kroki pozostawiliśmy regułom. Model miał pomagać wyłącznie w pracy z nieustrukturyzowanym opisem i przygotowywać szkic na podstawie zatwierdzonych procedur. Gdy brakowało źródła albo integracja nie odpowiadała, sprawa wracała do obsługi ręcznej.\n\nPrzed pilotem uzgodniłam kryteria: co najmniej 20% krótsza mediana czasu obsługi w wybranej kategorii, brak wzrostu udziału spraw wymagających poprawek i zachowane zatwierdzanie przez człowieka. Dzięki temu zespół miał wspólną podstawę do decyzji, czy rozszerzać zakres.",
+            "resultMode": "description",
+            "result": "Powstał pilot asystenta dla jednej kategorii zgłoszeń: podpowiedź kategorii, szkic odpowiedzi z odniesieniem do procedury, edycja i zatwierdzenie przez użytkownika oraz powrót do ręcznej obsługi przy błędzie.\n\nW syntetycznym zestawieniu pilota mediana czasu obsługi spadła z 20 do 14 minut, czyli o 30%. Porównano po 50 spraw przed i po uruchomieniu. Poprawki były potrzebne w 2 z 50 spraw w każdej grupie. Ten wynik spełniał uzgodnione progi pilota; nie oznaczał potwierdzonej skuteczności dla wszystkich zgłoszeń.\n\nZarekomendowałam utrzymanie zatwierdzania przez człowieka i dłuższy pilot przed dodaniem kolejnej kategorii. Nie przedstawiałam pilota jako pełnej automatyzacji ani policzonego zwrotu z inwestycji.",
+            "resultBasisMode": "description",
+            "resultBasis": "Zestawienie M4: zestawienie demonstracyjne przed/po. Czas oznacza aktywną pracę od otwarcia sprawy do przygotowania kompletnej odpowiedzi, bez oczekiwania w kolejce. Porównanie obejmuje tę samą kategorię i definicję poprawki; po 50 spraw w dwutygodniowych oknach przed i po pilocie. Analityk przygotował zestawienie, a ja uzgodniłam definicje i omówiłam wynik z właścicielem procesu. To porównanie obserwacyjne na małej próbie, więc nie izoluje wpływu asystenta od innych zmian. Liczby są syntetyczne i służą pokazaniu dobrze uzupełnionej karty.",
+            "limits": "Projekt dotyczy procesu operacyjnego B2B, a nie potwierdzonej znajomości księgowości. Nie mamy pomiaru długoterminowego użycia, kosztu utrzymania ani ROI. Mała próba i porównanie przed/po nie dowodzą, że całą zmianę czasu spowodował asystent. Materiały poniżej są opracowanymi przykładami, nie oryginalną dokumentacją klienta.",
+            "availability": "yes",
+            "unavailableReason": "",
+            "materials": [
+              {
+                "id": "c8300aa4-e422-492d-8f8d-dd7d626a3afb",
+                "name": "M1 · Discovery i zakres Anny (materiał demo)",
+                "kind": "excerpt",
+                "value": "SYNTETYCZNA NOTATKA DO DEMONSTRACJI\n1. Discovery: Anna poprowadziła rozmowy z 18 użytkownikami zespołu operacyjnego i opisała kroki obsługi zgłoszeń, wyjątki oraz miejsca ręcznego szukania procedur.\n2. Zakres: Anna i właściciel procesu wybrali jedną powtarzalną kategorię. Poza pilotem pozostały pozostałe typy spraw i automatyczne wysyłanie odpowiedzi.\n3. Anna przygotowała hipotezę skrócenia czasu, priorytety backlogu i kryteria: co najmniej 20% krótsza mediana czasu, brak wzrostu poprawek, zatwierdzanie przez użytkownika. Ta notatka jest opracowanym przykładem, nie zapisem rzeczywistego badania.",
+                "location": "Sekcje 1–3: rozpoznanie problemu, zakres pilota, odpowiedzialność PM",
+                "target": "own",
+                "shows": "Własne działania Anny: discovery, zawężenie problemu, hipoteza i kryteria odbioru.",
+                "support": "Właściciel procesu pomógł dobrać użytkowników; analityk uzgodnił definicje metryk. Rozmowy i decyzje produktowe prowadziła Anna."
+              },
+              {
+                "id": "792884b8-a7d7-4db3-851b-fc1f1006d92f",
+                "name": "M2 · Podział pracy w zespole (materiał demo)",
+                "kind": "excerpt",
+                "value": "SYNTETYCZNA TABELA ODPOWIEDZIALNOŚCI\nAnna (PM): discovery, wybór zakresu z właścicielem procesu, hipoteza, priorytety, kryteria odbioru, testy i rekomendacja.\nDesigner: makiety, prototyp i interakcje zatwierdzania/korekty podpowiedzi.\nInżynierowie: integracja z systemem zgłoszeń, wyszukiwanie w procedurach, wywołanie modelu, błędy i ręczna ścieżka awaryjna.\nAnalityk: zestawienie pomiarów według wspólnie uzgodnionych definicji.\nWłaściciel procesu: procedury, dobór spraw, zatwierdzenie kryteriów i odbiór pilota.\nAnna nie implementowała integracji ani nie trenowała modelu.",
+                "location": "Tabela odpowiedzialności: PM / design / inżynieria / analityka / właściciel procesu",
+                "target": "team",
+                "shows": "Rozdziela osobisty zakres Anny od projektowania interfejsu, kodowania i przygotowania zestawienia.",
+                "support": "Współpraca PM, designera, inżynierów, analityka i właściciela procesu; brak informacji o użyciu AI przez poszczególne osoby."
+              },
+              {
+                "id": "2ccf61e7-19b1-4098-aed1-5189f1513116",
+                "name": "M3 · Decyzja o zakresie pilota (materiał demo)",
+                "kind": "excerpt",
+                "value": "SYNTETYCZNY REJESTR DECYZJI D-01\nWariant A: automatyczna odpowiedź we wszystkich kategoriach. Odrzucony z powodu szerokiego zakresu i skutków błędnej odpowiedzi.\nWariant B: jedna kategoria, propozycja kategorii i szkic na podstawie zatwierdzonych procedur; człowiek sprawdza i wysyła. Wybrany przez Annę po uzgodnieniu z zespołem.\nProste kroki obsługują reguły; model pomaga przy treści nieustrukturyzowanej. Brak źródła lub awaria integracji oznacza obsługę ręczną.\nOdbiór: mediana czasu krótsza o minimum 20%, udział poprawek bez wzrostu, zachowane zatwierdzanie. Po pilocie decyzja o rozszerzeniu wymaga kolejnego pomiaru.",
+                "location": "Decyzja D-01: warianty, wybór, zabezpieczenia i progi",
+                "target": "decision",
+                "shows": "Dlaczego Anna wybrała wsparcie człowieka i mały zakres; jak decyzja przełożyła się na kryteria odbioru.",
+                "support": "Anna uzgodniła wykonalność i scenariusze awarii z inżynierami, a konsekwencje błędnej odpowiedzi z właścicielem procesu."
+              },
+              {
+                "id": "2938b71e-6256-4e1a-b8f5-9211e21bf2a5",
+                "name": "M4 · Pomiar pilota przed/po (materiał demo)",
+                "kind": "excerpt",
+                "value": "SYNTETYCZNE ZESTAWIENIE — NIE SĄ TO RZECZYWISTE DANE KLIENTA\nJedna kategoria zgłoszeń; dwa tygodnie przed i dwa tygodnie po pilocie.\n                         PRZED       PO\nLiczba spraw                50        50\nMediana aktywnej obsługi  20 min    14 min\nSprawy wymagające poprawki  2/50      2/50\nZmiana mediany: (20 − 14) / 20 = 30%. Poprawki: 4% w obu grupach.\nCzas: od rozpoczęcia pracy do kompletnej odpowiedzi, bez kolejki. Poprawka: uzupełnienie niepełnej lub błędnej odpowiedzi według tej samej definicji w obu grupach.\nOgraniczenia: mała próba, porównanie obserwacyjne przed/po, brak grupy kontrolnej. Surowe czasy, długoterminowa adopcja, ROI i koszt utrzymania nie są częścią tego przykładu.\nRekomendacja Anny: zachować zatwierdzanie i przeprowadzić dłuższy pilot przed rozszerzeniem kategorii.",
+                "location": "Tabela porównawcza oraz definicje pomiaru i ograniczenia",
+                "target": "result",
+                "shows": "Podstawę demonstracyjnego wyniku 30%, wielkość próby i brak wzrostu poprawek; pokazuje też ograniczenia porównania.",
+                "support": "Analityk przygotował zestawienie; Anna uzgodniła definicje i interpretację z właścicielem procesu. Nie jest to niezależna weryfikacja wyniku."
+              }
+            ]
+          }
+        }
+      ],
+      "sharedVersion": 2
+    }
+  },
+  {
+    "id": "application-anna-ai-operations-example",
+    "candidateId": "candidate-anna",
+    "jobId": "20000000-0000-4000-8000-000000000004",
+    "companyId": "10000000-0000-4000-8000-000000000001",
+    "jobTitle": "AI Operations Specialist",
+    "candidateName": "Anna Kowalska",
+    "cv": "Anna Kowalska — Product Manager\n2022–2026: prowadzenie rozwoju narzędzi dla zespołów operacyjnych. Badania z 18 użytkownikami, priorytetyzacja i wdrożenie asystenta do zgłoszeń. Skrócenie czasu obsługi o 30%.\n2019–2022: Product Analyst. Analiza lejków i eksperymenty A/B.\nUmiejętności: discovery, analityka produktu, współpraca z inżynierami, prototypowanie AI.",
+    "answer": "Chcę porozmawiać o roli AI Operations Specialist i wykorzystaniu mojego doświadczenia w usprawnianiu procesów operacyjnych.",
+    "sourceNotes": "",
+    "generatedAnswer": "",
+    "score": 84,
+    "summary": "Doświadczenie w badaniach użytkowników i wdrażaniu automatyzacji. Warto porozmawiać o sposobie mierzenia efektów i współpracy z zespołem.",
+    "stage": "submitted",
+    "events": [
+      {
+        "stage": "submitted",
+        "at": "2026-11-24T14:30:00.000Z",
+        "note": ""
+      }
+    ]
+  }
+]

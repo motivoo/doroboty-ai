@@ -1,9 +1,11 @@
 import { useLayoutEffect, useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Link } from "react-router";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ApplicationRecord } from "./application-record";
 import { nextStages, stageLabels, type Application } from "./model";
 import { usePrototype } from "./store";
+import { sharedProjectVersion } from "./project-card-model";
 
 export function RecruitingApplication({ application }: { application: Application }) {
   const { state, run } = usePrototype();
@@ -13,6 +15,7 @@ export function RecruitingApplication({ application }: { application: Applicatio
   const pendingFocus = useRef(false);
   const company = state.companies.find((item) => item.id === application.companyId);
   const availableStages = nextStages[application.stage];
+  const project = sharedProjectVersion(application);
 
   useLayoutEffect(() => {
     if (pendingFocus.current) {
@@ -23,6 +26,22 @@ export function RecruitingApplication({ application }: { application: Applicatio
 
   return (
     <>
+      <section className="record-sheet project-invitation" aria-label="Wkład w projekt i wnioski">
+        <h2>Wkład w projekt</h2>
+        <p>
+          {project
+            ? `${project.content.name} · wersja ${project.version}`
+            : "Nie dołączono karty. Możesz ocenić dostępne materiały aplikacji."}
+        </p>
+        <div className="record-actions">
+          <Link
+            to={`/app/kandydaci/${application.id}/projekt`}
+            className={buttonVariants({ variant: "outline" })}
+          >
+            Otwórz kartę i moje wnioski
+          </Link>
+        </div>
+      </section>
       <ApplicationRecord
         application={application}
         companyName={company?.name ?? ""}

@@ -4,7 +4,7 @@ One React/TypeScript application is built by Vite into static files. HashRouter 
 
 ## Data flow
 
-JSON marketplace/person fixtures → initialState → PrototypeProvider → feature views. Local operations go through transition with shared Zod schemas and explicit role/ownership/transition checks for coherent simulation. All roles still have access to the same browser data; these checks are not security.
+JSON marketplace/person/prepared-application fixtures → initialState → PrototypeProvider → feature views. Local operations go through transition with shared Zod schemas and explicit role/ownership/transition checks for coherent simulation. All roles still have access to the same browser data; these checks are not security.
 
 Candidate source notes, generated draft and approved application are distinct fields. Submission snapshots CV, candidate name, job title, scenario score and summary. Employer stage events are appended, with private-in-the-UI notes. Profile/job edits do not rewrite submitted records.
 
@@ -13,6 +13,8 @@ Storage uses one versioned localStorage key. Import validates schema/version, un
 ## Features
 
 src/features/prototype owns model/storage/state and page compositions. src/features/jobs retains reusable presentation/filter/description logic; src/components/ui owns Base UI controls. Keep changes small.
+
+The prepared application fixture contains Anna’s approved project card and a second application without a card. `preparedExamplesVersion` is optional in version-1 saves; startup adds missing prepared examples once, preserving existing candidate/job applications, unfinished application drafts and all reviewer records. Explicit imports mark the prepared examples as handled so a subsequent reload does not change the imported dataset. Reset restores the bundled examples.
 
 LocalStorage is origin-specific. Reload preserves state; another browser/device/port starts separately. No cross-tab live synchronization is provided; close other tabs before editing/importing. Hash links reference records in the receiving browser, not transferred records.
 

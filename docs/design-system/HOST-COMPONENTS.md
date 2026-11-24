@@ -56,6 +56,20 @@ The application owns success semantics: run the existing submit operation first,
 
 ## Style ownership
 
+### Project contribution and review
+
+The optional application-specific project flow uses `project-card-candidate.tsx`, `project-card-reading.tsx`, `project-card-recruiter.tsx` and `project-card.css`. These are host compositions of C01–C04 controls, C07 provenance metadata, C13 BackLink and C22 reading sections. They do not change the immutable reference kit.
+
+The candidate project page places a narrow r24 role-context surface beside the wider three-step wizard when the actual workspace is wider than 760px; a named container query stacks context above the editor in narrower workspaces. The native disclosure uses JobDescription for headings/lists inside an independently scrolling keyboard-reachable reading region. Opening it preserves editor position and draft state. The three-step candidate wizard retains recipient/role context, autosaves a private draft and requires an up-to-date preview plus explicit approval before publishing a numbered snapshot. Unknown/solo/confidential paths are valid. A simulated text organizer retains the source answers and requires candidate review; it does not fetch sources or assess authorship. Controls use the existing Base UI primitives; FormSelect optionally accepts `invalid` and `describedBy` for associated inline errors.
+
+The source drawer composes Base UI Dialog with a fixed header/close control and independently scrolling body. Reset the centered-dialog translation variables and animation in this drawer, as in ResponsivePanel; otherwise the centered primitive can shift it outside narrow viewports. Escape/close restore the invoking claim button. Reading the source never unmounts the review editor.
+
+Recruiter reading and notes use two outlined surfaces that stack at <=850px. Final internal notes reference an immutable card version; candidate UI receives no notes. A new shared version does not replace material under an ongoing review. E01 assigns one format, freezes role/source/version, and reveals the identical notes panel only at the response stage. The default record view preserves existing answer/CV/history/stage controls.
+
+The attached-card action is labelled `Edytuj`. `Usuń kartę` uses an inline confirmation/cancel group with focus management, followed by `Cofnij usunięcie`. Removal clears current shared availability and the active private draft, retaining an undo snapshot and immutable versions referenced by existing conclusions. Historical reviews explicitly identify a removed source; new reviews/list metadata do not treat the retained history as a current attachment. Starting a new project dismisses undo and opens an empty draft.
+
+Do not label a draft as shared, a card as removed/restored or a final note as saved until browser persistence succeeds. General browser-storage recovery remains in the shared store. Current execution evidence and viewport captures are recorded in `docs/tasks/project-contribution-card.md`.
+
 | Owner                                                | Scope                                                                         |
 | ---------------------------------------------------- | ----------------------------------------------------------------------------- |
 | [tokens.css](../../tokens.css)                       | Source-role aliases plus explicitly documented host score/status colors.      |
