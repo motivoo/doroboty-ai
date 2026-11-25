@@ -1,8 +1,13 @@
 import { Component, type ReactNode } from "react";
+import posthog from "posthog-js";
 import { Button } from "@/components/ui/button";
 import { STORAGE_KEY } from "./storage";
 import { diagnosticText, recordDiagnostic } from "./diagnostics";
 import { downloadText } from "./settings";
+
+const posthogConfigured = Boolean(
+  import.meta.env.VITE_PUBLIC_POSTHOG_PROJECT_TOKEN && import.meta.env.VITE_PUBLIC_POSTHOG_HOST,
+);
 
 export class PrototypeErrorBoundary extends Component<
   { children: ReactNode },
@@ -12,7 +17,8 @@ export class PrototypeErrorBoundary extends Component<
   static getDerivedStateFromError() {
     return { failed: true, message: "" };
   }
-  componentDidCatch() {
+  componentDidCatch(error: Error) {
+    if (posthogConfigured) posthog.captureException(error);
     recordDiagnostic("ui-render-failure");
   }
   exportOriginal = () => {

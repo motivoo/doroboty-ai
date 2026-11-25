@@ -1,9 +1,14 @@
 import { useState, type ChangeEvent } from "react";
+import posthog from "posthog-js";
 import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { usePrototype } from "./store";
 import { serializeState, MAX_IMPORT_BYTES } from "./storage";
 import { PageTitle } from "./shell";
+
+const posthogConfigured = Boolean(
+  import.meta.env.VITE_PUBLIC_POSTHOG_PROJECT_TOKEN && import.meta.env.VITE_PUBLIC_POSTHOG_HOST,
+);
 
 export function downloadText(name: string, text: string, type = "application/json") {
   const url = URL.createObjectURL(new Blob([text], { type }));
@@ -40,8 +45,10 @@ export function SettingsPage() {
   }
   function confirm() {
     if (pending === "reset") {
-      reset();
-    } else importState(raw);
+      if (reset() && posthogConfigured) posthog.capture("scenario_reset");
+    } else {
+      if (importState(raw) && posthogConfigured) posthog.capture("scenario_imported");
+    }
     setPending(null);
   }
   return (
@@ -56,7 +63,10 @@ export function SettingsPage() {
         <div className="flex flex-wrap gap-3">
           <Button
             variant="outline"
-            onClick={() => downloadText("doroboty-scenariusz.json", serializeState(state))}
+            onClick={() => {
+              downloadText("doroboty-scenariusz.json", serializeState(state));
+              if (posthogConfigured) posthog.capture("scenario_exported");
+            }}
           >
             Eksportuj dane
           </Button>

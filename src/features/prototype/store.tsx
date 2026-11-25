@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
-import { initialState, transition, type Action, type State } from "./model";
+import posthog from "posthog-js";
+import { currentPerson, initialState, transition, type Action, type State } from "./model";
 import {
   parseState,
   readState,
@@ -8,6 +9,10 @@ import {
   type StoragePort,
 } from "./storage";
 import { useWriterLock } from "./writer-lock";
+
+const posthogConfigured = Boolean(
+  import.meta.env.VITE_PUBLIC_POSTHOG_PROJECT_TOKEN && import.meta.env.VITE_PUBLIC_POSTHOG_HOST,
+);
 function browserStorage(): StoragePort | null {
   try {
     return window.localStorage;
@@ -141,6 +146,17 @@ type Store = ReturnType<typeof useStore>;
 const Context = createContext<Store | null>(null);
 export function PrototypeProvider({ children }: { children: ReactNode }) {
   const store = useStore();
+  const restoredIdentity = useRef(false);
+
+  useEffect(() => {
+    if (restoredIdentity.current || !store.ready) return;
+
+    restoredIdentity.current = true;
+    const person = currentPerson(store.state);
+    if (posthogConfigured && person)
+      posthog.identify(person.id, { name: person.name, role: person.role });
+  }, [store.ready, store.state]);
+
   // Route effects may persist a review immediately on mount. Mount them only
   // after the browser has resolved writer ownership, including read-only mode.
   if (!store.ready) return <p role="status">Przygotowywanie scenariusza…</p>;
