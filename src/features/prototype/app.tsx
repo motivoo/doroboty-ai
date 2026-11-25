@@ -20,6 +20,7 @@ import { CasePage } from "./case";
 import { CandidateProjectPage } from "./project-card-candidate";
 import { ProjectRecruiterPage } from "./project-card-recruiter";
 import { HelpPage } from "./help";
+import { AnalyticsPageviews } from "@/features/analytics/pageviews";
 function AppRoutes() {
   return (
     <Routes>
@@ -171,6 +172,7 @@ export function App() {
   return (
     <PrototypeProvider>
       <HashRouter>
+        <AnalyticsPageviews />
         <AppRoutes />
       </HashRouter>
     </PrototypeProvider>

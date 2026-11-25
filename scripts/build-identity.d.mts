@@ -1,1 +1,4 @@
-export function buildIdentity(root: string): { id: string; version: string };
+export function buildIdentity(
+  root: string,
+  publicConfiguration?: Record<string, string>,
+): { id: string; version: string };

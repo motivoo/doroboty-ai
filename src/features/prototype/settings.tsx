@@ -133,6 +133,15 @@ export function PrivacyPage() {
           scenariusz, w tym notatki.
         </p>
         <p>
+          Publiczna wersja może wysyłać do PostHog anonimowe wejścia na publiczne strony i
+          kliknięcia linków oraz przycisków. Pomiar pomija wybór osoby, panel użytkownika,
+          aplikowanie, formularze i ich treść. Usuwamy parametry adresów oraz identyfikatory ofert i
+          firm. Nie wysyłamy imion, CV, notatek ani surowych błędów. Nagrywanie sesji jest
+          wyłączone. Identyfikator statystyk działa tylko w pamięci karty, bez plików cookie i
+          zapisu w pamięci przeglądarki; odświeżenie tworzy nowy. Respektujemy ustawienie „Do Not
+          Track” przeglądarki. Lokalne kopie i podglądy Netlify nie wysyłają statystyk.
+        </p>
+        <p>
           Możesz usunąć zmiany przyciskiem „Resetuj scenariusz” w ustawieniach lub wyczyścić dane
           witryny w przeglądarce. Hosting może prowadzić własne logi dostępu.
         </p>
