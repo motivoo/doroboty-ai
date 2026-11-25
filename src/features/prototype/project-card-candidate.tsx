@@ -1,5 +1,4 @@
 import { useLayoutEffect, useRef, useState } from "react";
-import posthog from "posthog-js";
 import { Link, useNavigate, useParams } from "react-router";
 import { ArrowRight, FilePlus2, Check, Trash2 } from "lucide-react";
 import { BackLink } from "@/components/back-link";
@@ -21,10 +20,6 @@ import {
   type ProjectContent,
   type SectionKey,
 } from "./project-card-model";
-
-const posthogConfigured = Boolean(
-  import.meta.env.VITE_PUBLIC_POSTHOG_PROJECT_TOKEN && import.meta.env.VITE_PUBLIC_POSTHOG_HOST,
-);
 
 export function ProjectInvitation({
   application,
@@ -630,10 +625,8 @@ function ProjectEditor({ application }: { application: Application }) {
                   <Button
                     disabled={!approved || Boolean(proposal)}
                     onClick={() => {
-                      if (run({ type: "project_share", applicationId: application.id, approved })) {
-                        if (posthogConfigured) posthog.capture("project_card_shared");
+                      if (run({ type: "project_share", applicationId: application.id, approved }))
                         navigate(`/app/aplikacje/${application.id}?karta=1`);
-                      }
                     }}
                   >
                     Zatwierdź i udostępnij kartę

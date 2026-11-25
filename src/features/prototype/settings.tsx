@@ -1,14 +1,9 @@
 import { useState, type ChangeEvent } from "react";
-import posthog from "posthog-js";
 import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { usePrototype } from "./store";
 import { serializeState, MAX_IMPORT_BYTES } from "./storage";
 import { PageTitle } from "./shell";
-
-const posthogConfigured = Boolean(
-  import.meta.env.VITE_PUBLIC_POSTHOG_PROJECT_TOKEN && import.meta.env.VITE_PUBLIC_POSTHOG_HOST,
-);
 
 export function downloadText(name: string, text: string, type = "application/json") {
   const url = URL.createObjectURL(new Blob([text], { type }));
@@ -45,10 +40,8 @@ export function SettingsPage() {
   }
   function confirm() {
     if (pending === "reset") {
-      if (reset() && posthogConfigured) posthog.capture("scenario_reset");
-    } else {
-      if (importState(raw) && posthogConfigured) posthog.capture("scenario_imported");
-    }
+      reset();
+    } else importState(raw);
     setPending(null);
   }
   return (
@@ -63,10 +56,7 @@ export function SettingsPage() {
         <div className="flex flex-wrap gap-3">
           <Button
             variant="outline"
-            onClick={() => {
-              downloadText("doroboty-scenariusz.json", serializeState(state));
-              if (posthogConfigured) posthog.capture("scenario_exported");
-            }}
+            onClick={() => downloadText("doroboty-scenariusz.json", serializeState(state))}
           >
             Eksportuj dane
           </Button>
@@ -141,6 +131,15 @@ export function PrivacyPage() {
           Profile, aplikacje i ustawienia pozostają w pamięci tej przeglądarki. Aplikacja nie wysyła
           ich do bazy, dostawcy AI ani systemu analitycznego. Plik eksportu zawiera cały lokalny
           scenariusz, w tym notatki.
+        </p>
+        <p>
+          Publiczna wersja może wysyłać do PostHog anonimowe wejścia na publiczne strony i
+          kliknięcia linków oraz przycisków. Pomiar pomija wybór osoby, panel użytkownika,
+          aplikowanie, formularze i ich treść. Usuwamy parametry adresów oraz identyfikatory ofert i
+          firm. Nie wysyłamy imion, CV, notatek ani surowych błędów. Nagrywanie sesji jest
+          wyłączone. Identyfikator statystyk działa tylko w pamięci karty, bez plików cookie i
+          zapisu w pamięci przeglądarki; odświeżenie tworzy nowy. Respektujemy ustawienie „Do Not
+          Track” przeglądarki. Lokalne kopie i podglądy Netlify nie wysyłają statystyk.
         </p>
         <p>
           Możesz usunąć zmiany przyciskiem „Resetuj scenariusz” w ustawieniach lub wyczyścić dane

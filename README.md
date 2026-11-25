@@ -47,3 +47,9 @@ The static output is dist/. Browser checks require an already provisioned Playwr
 See [release and recovery](docs/RELEASE.md) for separate teaching-package and public-demo procedures. Every screen identifies the synthetic demo and links to Help. One tab holds browser write access; other tabs can read/export. Import/reset confirm only after a durable save. Help and `dist/build-meta.json` expose the same reproducible build ID. A public URL, hosting owner/contact, limits and actual deployed checks still need to be established before publishing.
 
 To distribute a baseline participant package, run npm run package:participant -- /absolute/output/directory. This excludes Git history and instructor source material. Never distribute this repository’s history as a stage-safe packet.
+
+## Optional public PostHog analytics
+
+Local use requires no analytics account or environment file. To enable the canonical Netlify site only, set VITE_POSTHOG_KEY to the public project token and VITE_POSTHOG_HOST to the project ingestion host in Netlify → Manage → Keys and secrets (live app / production context; the Free plan exposes all scopes). Vite embeds these public values in the static build; never use a personal API key. Use disabled and https://disabled.invalid for non-production contexts. Rebuild after changing them. No reverse proxy, server, new paid service or routing change is required.
+
+The integration records sanitized public Pageview and click Autocapture events. It excludes persona selection, workspace/application routes, forms and editable content. It sends no persona names, scenario data, raw errors or replay. Analytics identifiers stay only in tab memory and DNT is respected. Test the homepage **Zobacz oferty** action, then inspect Pageview and Autocapture in the target project’s Activity → Live; verify its URL, time and app_build. Unit tests and npm run test:e2e:analytics verify the payload boundary without contacting a real PostHog project.

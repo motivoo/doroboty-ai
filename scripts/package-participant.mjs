@@ -28,6 +28,7 @@ const entries = [
   "vitest.config.ts",
   "playwright.config.ts",
   "playwright.dev.config.ts",
+  "playwright.analytics.config.ts",
   "eslint.config.mjs",
   ".nvmrc",
   ".prettierrc.json",

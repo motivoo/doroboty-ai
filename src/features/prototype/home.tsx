@@ -47,11 +47,16 @@ export default function HomePage() {
               pracy — nie dopiskiem w employer brandingu.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/oferty" className={buttonVariants({ size: "lg" })}>
+              <Link
+                to="/oferty"
+                data-ph-capture-attribute-public_action="browse-jobs"
+                className={buttonVariants({ size: "lg" })}
+              >
                 Zobacz oferty <ArrowRight />
               </Link>
               <Link
                 to="/metodologia"
+                data-ph-capture-attribute-public_action="methodology"
                 className={cn(buttonVariants({ size: "lg", variant: "outline" }))}
               >
                 Jak wybieramy role

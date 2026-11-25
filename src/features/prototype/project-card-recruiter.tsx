@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import posthog from "posthog-js";
 import { Link, useParams, useSearchParams } from "react-router";
 import { BackLink } from "@/components/back-link";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -20,10 +19,6 @@ import {
   type ProjectVersion,
   type ReviewContent,
 } from "./project-card-model";
-
-const posthogConfigured = Boolean(
-  import.meta.env.VITE_PUBLIC_POSTHOG_PROJECT_TOKEN && import.meta.env.VITE_PUBLIC_POSTHOG_HOST,
-);
 
 export function reviewStatus(application: Application) {
   return application.projectReviews?.draft
@@ -362,13 +357,10 @@ function ReviewEditor({
           );
           return;
         }
-        if (run({ type: "review_save", applicationId: application.id })) {
-          if (posthogConfigured)
-            posthog.capture("project_review_saved", { next_step: content.nextStep });
+        if (run({ type: "review_save", applicationId: application.id }))
           requestAnimationFrame(() =>
             document.getElementById(`saved-review-${review.id}`)?.focus(),
           );
-        }
       }}
     >
       <p className="record-caption" role="status">
