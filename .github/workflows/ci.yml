@@ -29,5 +29,6 @@ jobs:
           name: browser-report
           path: |
             playwright-report/
+            playwright-report-dev/
             test-results/
           retention-days: 7

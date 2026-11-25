@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import "./base-ui-variants.css";
 @import "../../tokens.css";
 @import "./workspace.css";
 @import "./poster-people.css";
@@ -9,6 +9,7 @@
 @import "./application.css";
 @import "./project-card.css";
 @import "./interactions.css";
+@import "./readiness.css";
 
 @theme inline {
   --color-background: var(--background);

@@ -16,15 +16,16 @@ export function downloadText(name: string, text: string, type = "application/jso
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 export function SettingsPage() {
-  const { state, reset, importState, original } = usePrototype();
+  const { state, reset, importState, original, operationMessage, clearOperationMessage } =
+    usePrototype();
   const [pending, setPending] = useState<"reset" | "import" | null>(null);
   const [raw, setRaw] = useState("");
   const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
   async function readFile(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     e.target.value = "";
     setError("");
+    clearOperationMessage();
     if (!file) return;
     if (file.size > MAX_IMPORT_BYTES) {
       setError("Plik jest za duży (maksymalnie 2 MB).");
@@ -40,10 +41,7 @@ export function SettingsPage() {
   function confirm() {
     if (pending === "reset") {
       reset();
-      setMessage("Przywrócono scenariusz początkowy.");
-    } else if (importState(raw)) {
-      setMessage("Dane zostały zaimportowane.");
-    }
+    } else importState(raw);
     setPending(null);
   }
   return (
@@ -83,7 +81,13 @@ export function SettingsPage() {
             </Button>
           )}
         </div>
-        <Button variant="destructive" onClick={() => setPending("reset")}>
+        <Button
+          variant="destructive"
+          onClick={() => {
+            clearOperationMessage();
+            setPending("reset");
+          }}
+        >
           Resetuj scenariusz
         </Button>
         {error && (
@@ -91,7 +95,7 @@ export function SettingsPage() {
             {error}
           </p>
         )}
-        {message && <p role="status">{message}</p>}
+        {operationMessage && <p role="status">{operationMessage}</p>}
       </section>
       <section className="prototype-panel prototype-form mt-6">
         <h2>O prototypie</h2>

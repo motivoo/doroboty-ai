@@ -388,6 +388,7 @@ test("expanded role description stays beside the candidate wizard and preserves 
   expect(Math.abs(closedTop - editorTop)).toBeLessThan(2);
   await page.keyboard.press("Enter");
   await description.focus();
+  await expect(description).toBeFocused();
   await page.keyboard.press("Home");
   await expect.poll(() => description.evaluate((el) => el.scrollTop)).toBe(0);
   await page.locator(".project-page-header").scrollIntoViewIfNeeded();

@@ -44,4 +44,6 @@ npm run preview
 
 The static output is dist/. Browser checks require an already provisioned Playwright Chromium; starting the app never installs it. See [participant guide](docs/PARTICIPANT_GUIDE.md), [architecture](docs/architecture.md), [current features](FEATURES.md) and [case protocol](docs/case/CASE_PROTOCOL.md).
 
+See [release and recovery](docs/RELEASE.md) for separate teaching-package and public-demo procedures. Every screen identifies the synthetic demo and links to Help. One tab holds browser write access; other tabs can read/export. Import/reset confirm only after a durable save. Help and `dist/build-meta.json` expose the same reproducible build ID. A public URL, hosting owner/contact, limits and actual deployed checks still need to be established before publishing.
+
 To distribute a baseline participant package, run npm run package:participant -- /absolute/output/directory. This excludes Git history and instructor source material. Never distribute this repository’s history as a stage-safe packet.

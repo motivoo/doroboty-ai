@@ -21,19 +21,21 @@ Read the current [host catalog](HOST-COMPONENTS.md), [record APIs](RECORDS.md) a
 
 Candidate submitted detail now also uses the shared ApplicationRecord composition, with owner-filtered stage/date history, CV-only snapshot preview and focused two-step withdrawal. Repository-only execution evidence: `docs/tasks/candidate-submitted-record-redesign.md`. This does not resolve the company-page audit below.
 
-## Open company-page findings
+## Company-page follow-up
 
-The Northstar Health audit (`docs/tasks/northstar-company-design-audit.md`) was read-only. The following findings are **open**, not fixed by the later confetti work or this documentation update:
+The production-readiness repair adds implementations and targeted regressions for
+NH-01–NH-05: valid definition-list grouping and an external website action,
+an outlined white information panel, outlined shared logo fallback,
+candidate-specific save controls, and the shared synthetic-demo notice.
+Sources: src/features/prototype/marketplace.tsx,
+src/features/jobs/company-logo.tsx, src/features/prototype/demo-notice.tsx.
+The new tests/e2e/readiness.spec.ts covers company Axe checks, saved state,
+mobile/desktop reflow and the demo notice. Actual execution and remaining
+release prerequisites belong in docs/production-readiness.html; the presence
+of these source changes alone is not a passing accessibility or visual audit.
 
-| ID    | Remaining issue                                                                                                 |
-| ----- | --------------------------------------------------------------------------------------------------------------- |
-| NH-01 | Invalid definition-list structure; targeted Axe scan reports serious `definition-list` and `dlitem` violations. |
-| NH-02 | Company information surface lacks the expected white fill and visible ink contour.                              |
-| NH-03 | Header identity fallback lacks a visible contour and uses the older large treatment.                            |
-| NH-04 | Company cards omit save toggles even for an active candidate because the saved state is not supplied.           |
-| NH-05 | Company/profile footer lacks the demonstrative-data context present in C08/C12.                                 |
-
-The full company-page layout is not a canonical v1 screen. Container alignment, contextual BackLink and richer empty-state recovery are documented host recommendations; do not convert them into invented source requirements. The audit does not require the compact source profile's H2 size or illustration on every full company page.
+The full company-page layout remains a host composition rather than a
+canonical v1 screen. The immutable reference is unchanged.
 
 ## Evidence boundaries
 
